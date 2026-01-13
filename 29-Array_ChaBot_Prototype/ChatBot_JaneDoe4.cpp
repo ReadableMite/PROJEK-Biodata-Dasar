@@ -4,7 +4,7 @@
 #include<ctime>
 
 // Proses Logika
-void prosesLogika(std::string input, std::string keyword[3][3], std::string respon[3][15], int mood[3][15], int trait_id, int &affinity, int &mood_waifu){
+void proses_logika(std::string input, std::string keyword[3][3], std::string respon[3][15], int mood[3][15], int trait_id, int &affinity, int &mood_waifu){
     bool ketemu=false;
     float multiplier=1.0;
 
@@ -45,7 +45,7 @@ void prosesLogika(std::string input, std::string keyword[3][3], std::string resp
 }
 
 // Daftar Menu
-void tampilanMenu(std::string keyword[3][3]){
+void tampilan_menu(std::string keyword[3][3]){
     std::cout<<"\n--- Daftar Menu ChatBot ---\n";
     for(int a=0;a<3;a++){
         for(int b=0;b<3;b++){
@@ -56,7 +56,7 @@ void tampilanMenu(std::string keyword[3][3]){
 }
 
 // Status Mood Bot
-void statusMood(int mood_waifu){
+void status_mood(int mood_waifu){
     std::cout<<"\n--- Status Bot ---\n";
     std::cout<<"Mood: ";
 
@@ -74,7 +74,7 @@ void statusMood(int mood_waifu){
 }
 
 // Menu Bye
-bool menuBye(std::string input, int mood_waifu){
+bool menu_bye(std::string input, int mood_waifu){
     if(input=="Bye" || input=="bye"){
         if(mood_waifu>50){
             std::cout<<"Dadah, Senpai! Kapan-kapan ngobrol lagi ama aku yah~\n";
@@ -86,6 +86,38 @@ bool menuBye(std::string input, int mood_waifu){
         return true;
     }
     return false;  
+}
+
+/*
+0 Defensif (Tsundere)Jual mahal, sinis di awal, susah percaya.Multiplier: 0.5. (Affinity naik lambat).
+1 Ekstrovert (Ramah)Gampang akrab, suka ngobrol, ceria.Multiplier: 1.5. (Gampang banget di-Lobi).
+2 Kaku (Stoic)Pendiam, gak banyak emosi, bicara seperlunya.Multiplier: 1.0. (Stabil, gak gampang marah/seneng).
+3 TemperamentalGampang tersinggung, meledak-ledak.Multiplier: 0.8. (Mood gampang drop kalau salah ngomong).
+4 Obsesif (Bucin)Sangat bergantung sama User, haus perhatian.Multiplier: 2.0. (Affinity naik gila-gilaan, tapi mood drop parah kalau dicuekin).
+*/
+
+// Dynamic Conversation
+void sapaan_dinamis(int trait_id, int affinity, int mood_waifu){
+    std::cout<<"Jane Doe:";
+
+    if(mood_waifu<=20){
+        if(trait_id==0){
+            std::cout<<"Gak usah ganggu. Lagi males!\n";
+        }else if(trait_id==1){
+            std::cout<<"Maaf yaa, aku lagi pengen sendiri dulu...\n";
+        }else if(trait_id==2){
+            std::cout<<"Kamu tau kan kalo aku sayang kamu?...ehe, tapi aku lagi pengen sendiri sekarang...Boleh yaa~\n";
+        }else if(trait_id==3){
+            std::cout<<"Ayaangg~ aku agak ngga mood nihh. Tapi tetep temenin aku yaa~\n";
+        }else if(trait_id==4){
+            std::cout<<"Cium aku... >///<\n";
+        }
+    }
+    if(affinity>10){
+        if(trait_id<0){
+
+        }
+    }
 }
 
 // Kode utama
@@ -119,16 +151,16 @@ int main(){
     std::cout<<"Selamat Datang di Program ChatBot Waifu: 'Jane Doe 3'\nSilahkan Ikuti Program Berikut.\n";
 
     while(mood_waifu>0){
-        tampilanMenu(keyword);
-        statusMood(mood_waifu);
+        tampilan_menu(keyword);
+        status_mood(mood_waifu);
         std::cout<<"Mood Jane Doe: "<<mood_waifu<<std::endl;
         std::cout<<"\nMasukkan pilihan (ex: Halo): ";
         std::cin>>input;
         
-        if(menuBye(input, mood_waifu)){
+        if(menu_bye(input, mood_waifu)){
             break;
         }
-        prosesLogika(input, keyword, respon, mood, trait_id, affinity, mood_waifu);
+        proses_logika(input, keyword, respon, mood, trait_id, affinity, mood_waifu);
         std::cout<<"[Sistem: Kedekatan saat ini = "<<affinity<<"]\n";
         if(mood_waifu<=0){
             std::cout<<"Aku ngga mau ngomong sama kamu. Huft!!\n";
